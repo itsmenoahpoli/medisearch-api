@@ -6,6 +6,27 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  password   String
+  isEnabled  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userTypeId Int
+  userType   UserType @relation(fields: [userTypeId], references: [id])
+}
+
+model UserType {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  isEnabled Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  users     User[]
 }
