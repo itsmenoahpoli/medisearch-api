@@ -2,7 +2,16 @@
 
 <p>Built with Nodejs, Expressjs, Prisma, MySQL, TypeScript</p>
 
-<h3>Installation Guide</h3>
+### Pre-requisites
+
+You must have the following installed:
+
+- [x] - NodeJS v18
+- [x] - MySQL (XAMPP)
+- [x] - Postman (for API testing)
+- [x] - Visual Studio Code (IDE)
+
+### Installation Guide
 
 ```bash
 git clone https://github.com/itsmenoahpoli/medisearch-api.git
