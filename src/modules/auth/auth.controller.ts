@@ -45,6 +45,7 @@ export class AuthController extends BaseController {
 
   public logoutHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
+<<<<<<< HEAD
       // @ts-ignore
       const user = request.user;
       const authToken = request.headers["authorization"]?.split(" ")[1] as string;
@@ -52,6 +53,8 @@ export class AuthController extends BaseController {
       const data = await this.authService.unauthenticateCredentials(user, authToken);
 
       return response.status(200).json(data);
+=======
+>>>>>>> b9c898c2c1982ab489abc9f5b8c7c3c27371db66
     } catch (error) {
       next(error);
     }

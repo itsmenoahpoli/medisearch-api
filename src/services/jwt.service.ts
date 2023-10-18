@@ -3,34 +3,34 @@ import { BaseService } from "~/modules/base.service";
 import { getEnv } from "~/utilities/env.util";
 
 export class JWTService extends BaseService {
-	private JWT_SECRET: string;
+  private JWT_SECRET: string;
 
-	constructor() {
-		super();
-		this.JWT_SECRET = getEnv<string>("JWT_SECRET");
-	}
+  constructor() {
+    super();
+    this.JWT_SECRET = getEnv<string>("JWT_SECRET");
+  }
 
-	public createToken = (payload: any) => {
-		return jwt.sign(payload, this.JWT_SECRET, { expiresIn: "1d", algorithm: "HS512" });
-	};
+  public createToken = (payload: any) => {
+    return jwt.sign(payload, this.JWT_SECRET, { expiresIn: "1d", algorithm: "HS512" });
+  };
 
-	public verifyToken = async (token: string) => {
-		const user = jwt.verify(token, this.JWT_SECRET);
+  public verifyToken = async (token: string) => {
+    const user = jwt.verify(token, this.JWT_SECRET);
 
-		if (user) {
-			const tokenInDB = await this.db.userJWT.findFirst({ where: { token } });
+    if (user) {
+      const tokenInDB = await this.db.userJWT.findFirst({ where: { token } });
 
-			if (tokenInDB?.isRevoked) {
-				throw Error("Unauthorized");
-			}
+      if (tokenInDB?.isRevoked) {
+        throw Error("Unauthorized");
+      }
 
-			return user;
-		}
+      return user;
+    }
 
-		throw Error("Unauthorized");
-	};
+    throw Error("Unauthorized");
+  };
 
-	public revokeToken = async (token: string) => {
-		// TODO: Revoke token for logout
-	};
+  public revokeToken = async (token: string) => {
+    // TODO: Revoke token for logout
+  };
 }
