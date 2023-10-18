@@ -11,22 +11,24 @@ datasource db {
 }
 
 model User {
-  id         Int      @id @default(autoincrement())
-  name       String
-  email      String   @unique
-  password   String
-  isEnabled  Boolean  @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  userTypeId Int
-  userType   UserType @relation(fields: [userTypeId], references: [id])
+  id              Int       @id @default(autoincrement())
+  accountNo       String    @unique
+  name            String
+  email           String    @unique
+  password        String
+  userType        String
+  accountVerified Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  userJWT         UserJWT[]
 }
 
-model UserType {
+model UserJWT {
   id        Int      @id @default(autoincrement())
-  name      String   @unique
-  isEnabled Boolean  @default(false)
+  token     String   @db.Text
+  isRevoked Boolean  @default(false)
+  userId    Int
+  user      User     @relation(references: [id], fields: [userId])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  users     User[]
 }
