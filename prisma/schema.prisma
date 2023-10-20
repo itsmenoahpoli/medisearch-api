@@ -11,16 +11,28 @@ datasource db {
 }
 
 model User {
-  id              Int       @id @default(autoincrement())
-  accountNo       String    @unique
+  id              Int           @id @default(autoincrement())
+  accountNo       String        @unique
   name            String
-  email           String    @unique
+  email           String        @unique
   password        String
   userType        String
-  accountVerified Boolean   @default(false)
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  accountVerified Boolean       @default(false)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
   userJWT         UserJWT[]
+  userAddresses   UserAddress[]
+}
+
+model UserAddress {
+  id            Int      @id @default(autoincrement())
+  label         String
+  address       String   @db.Text
+  addressNumber String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  userId        Int
+  user          User     @relation(references: [id], fields: [userId])
 }
 
 model UserJWT {
@@ -31,4 +43,29 @@ model UserJWT {
   user      User     @relation(references: [id], fields: [userId])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Pharmacy {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  nameSlug      String   @unique
+  address       String   @db.Text
+  storeHours    String
+  contactNumber String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model Medicine {
+  id              Int      @id @default(autoincrement())
+  itemNumber      String   @unique
+  name            String   @unique
+  nameSlug        String   @unique
+  category        String
+  price           Float
+  quantity        Int
+  expirationDate  DateTime
+  reservationDate DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
 }

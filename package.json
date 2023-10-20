@@ -9,6 +9,9 @@
     "start:preview": "tsc && tsc-alias && node ./dist/index.js",
     "dev": "nodemon"
   },
+  "prisma": {
+    "seed": "ts-node ./prisma/seed.ts"
+  },
   "author": "Patrick Policarpio",
   "license": "ISC",
   "dependencies": {
