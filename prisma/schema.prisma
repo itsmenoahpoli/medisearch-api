@@ -25,14 +25,13 @@ model User {
 }
 
 model UserAddress {
-  id            Int      @id @default(autoincrement())
-  label         String
-  address       String   @db.Text
-  addressNumber String?
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
-  userId        Int
-  user          User     @relation(references: [id], fields: [userId])
+  id        Int      @id @default(autoincrement())
+  label     String
+  address   String   @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  userId    Int
+  user      User     @relation(references: [id], fields: [userId])
 }
 
 model UserJWT {
