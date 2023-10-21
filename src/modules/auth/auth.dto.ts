@@ -2,6 +2,7 @@ import { IsNotEmpty, IsString, IsEnum } from "class-validator";
 
 export enum TAuthType {
   ADMIN = "admin",
+  PHARMACY_STAFF = "pharmacy_staff",
   CUSTOMER = "customer",
 }
 

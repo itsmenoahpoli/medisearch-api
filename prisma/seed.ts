@@ -16,17 +16,25 @@ async function main() {
     await prisma.user.createMany({
       data: [
         {
-          accountNo: "user08172023",
-          name: "John Doe",
-          email: "johndoe@domain.com",
+          accountNo: "useradmin08172023",
+          name: "Admin User",
+          email: "admin@domain.com",
           password: await hashPassword("1234567890"),
           accountVerified: false,
           userType: "admin",
         },
         {
-          accountNo: "customer10012023",
-          name: "Dhaine Dhaine",
-          email: "dhaine@domain.com",
+          accountNo: "useradmin08172023",
+          name: "Pharmacy Staff",
+          email: "pharmastaff@domain.com",
+          password: await hashPassword("1234567890"),
+          accountVerified: false,
+          userType: "pharmacy_staff",
+        },
+        {
+          accountNo: "usercustomer10012023",
+          name: "Customer User",
+          email: "customer@domain.com",
           password: await hashPassword("1234567890"),
           accountVerified: true,
           userType: "customer",
