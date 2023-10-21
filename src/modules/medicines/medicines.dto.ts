@@ -3,7 +3,6 @@ import { IsNotEmpty, IsString, IsNumber, IsDateString } from "class-validator";
 export type TMedicine = {
   itemNumber: string;
   name: string;
-  nameSlug: string;
   category: string;
   price: number;
   quantity: number;
@@ -19,10 +18,6 @@ export class MedicineDTO implements TMedicine {
   @IsNotEmpty()
   @IsString()
   name: string;
-
-  @IsNotEmpty()
-  @IsString()
-  nameSlug: string;
 
   @IsNotEmpty()
   @IsString()
