@@ -20,13 +20,30 @@ export class MedicinesService extends BaseService {
       where: { id },
     });
 
+    if (!medicine) return null;
+
+    return medicine;
+  };
+
+  public getMedicineByItemNumber = async (itemNumber: string) => {
+    const medicine = await this.db.medicine.findUnique({
+      where: {
+        itemNumber,
+      },
+    });
+
+    if (!medicine) return null;
+
     return medicine;
   };
 
   public updateMedicineById = async (id: number, medicineData: TMedicine) => {
     const medicine = await this.db.medicine.update({
       where: { id },
-      data: medicineData,
+      data: {
+        ...medicineData,
+        nameSlug: slugify(medicineData.name),
+      },
     });
 
     return medicine;

@@ -45,14 +45,15 @@ model UserJWT {
 }
 
 model Pharmacy {
-  id            Int      @id @default(autoincrement())
-  name          String   @unique
-  nameSlug      String   @unique
-  address       String   @db.Text
-  storeHours    String
-  contactNumber String
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  id                Int                @id @default(autoincrement())
+  name              String             @unique
+  nameSlug          String             @unique
+  address           String             @db.Text
+  storeHours        String
+  contactNumber     String
+  reservedMedicines ReservedMedicine[]
+  createdAt         DateTime           @default(now())
+  updatedAt         DateTime           @updatedAt
 }
 
 model Medicine {
@@ -67,4 +68,12 @@ model Medicine {
   reservationDate DateTime
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+}
+
+model ReservedMedicine {
+  id         Int      @id @default(autoincrement())
+  pharmacyId Int
+  pharmacy   Pharmacy @relation(references: [id], fields: [pharmacyId])
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
 }
