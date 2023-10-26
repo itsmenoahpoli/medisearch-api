@@ -25,6 +25,12 @@ export class MedicinesController extends BaseController {
   public getMedicineByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const data = await this.medicinesService.getMedicineById(Number(request.params.id));
+
+      if (!data) {
+        return response.status(404).json(data);
+      }
+
+      return response.status(200).json(data);
     } catch (error) {
       next(error);
     }
@@ -32,7 +38,15 @@ export class MedicinesController extends BaseController {
 
   public updateMedicineByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      //
+      const requestValidated = await this.validateRequestBody(MedicineDTO, request.body);
+
+      if (requestValidated.isError) {
+        return next({ type: "validation-error", errors: requestValidated.errors });
+      }
+
+      const data = await this.medicinesService.updateMedicineById(request.body, Number(request.params.id));
+
+      return response.status(200).json(data);
     } catch (error) {
       next(error);
     }
@@ -40,7 +54,9 @@ export class MedicinesController extends BaseController {
 
   public deleteMedicineByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      //
+      const data = await this.medicinesService.deleteMedicineById(Number(request.params.id));
+
+      return response.status(204).json(data);
     } catch (error) {
       next(error);
     }
@@ -48,7 +64,15 @@ export class MedicinesController extends BaseController {
 
   public createMedicineHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      //
+      const requestValidated = await this.validateRequestBody(MedicineDTO, request.body);
+
+      if (requestValidated.isError) {
+        return next({ type: "validation-error", errors: requestValidated.errors });
+      }
+
+      const data = await this.medicinesService.createMedicine(request.body);
+
+      return response.status(201).json(data);
     } catch (error) {
       next(error);
     }

@@ -37,7 +37,7 @@ export class MedicinesService extends BaseService {
     return medicine;
   };
 
-  public updateMedicineById = async (id: number, medicineData: TMedicine) => {
+  public updateMedicineById = async (medicineData: TMedicine, id: number) => {
     const medicine = await this.db.medicine.update({
       where: { id },
       data: {
