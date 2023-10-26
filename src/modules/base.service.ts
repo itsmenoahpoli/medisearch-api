@@ -10,4 +10,8 @@ export class BaseService {
   protected get db() {
     return this.prismaClient;
   }
+
+  public convertDateToISO = (dateStr: string) => {
+    return new Date(dateStr).toISOString();
+  };
 }

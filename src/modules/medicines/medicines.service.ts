@@ -43,6 +43,8 @@ export class MedicinesService extends BaseService {
       data: {
         ...medicineData,
         nameSlug: slugify(medicineData.name),
+        expirationDate: this.convertDateToISO(medicineData.expirationDate),
+        reservationDate: this.convertDateToISO(medicineData.reservationDate),
       },
     });
 
@@ -62,6 +64,8 @@ export class MedicinesService extends BaseService {
       data: {
         ...medicineData,
         nameSlug: slugify(medicineData.name),
+        expirationDate: this.convertDateToISO(medicineData.expirationDate),
+        reservationDate: this.convertDateToISO(medicineData.reservationDate),
       },
     });
 
