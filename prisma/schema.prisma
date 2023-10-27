@@ -54,20 +54,22 @@ model Pharmacy {
   reservedMedicines ReservedMedicine[]
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
+  deletedAt         DateTime?
 }
 
 model Medicine {
-  id              Int      @id @default(autoincrement())
-  itemNumber      String   @unique
-  name            String   @unique
-  nameSlug        String   @unique
+  id              Int       @id @default(autoincrement())
+  itemNumber      String    @unique
+  name            String    @unique
+  nameSlug        String    @unique
   category        String
   price           Float
   quantity        Int
   expirationDate  DateTime
   reservationDate DateTime
-  createdAt       DateTime @default(now())
-  updatedAt       DateTime @updatedAt
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
 }
 
 model ReservedMedicine {

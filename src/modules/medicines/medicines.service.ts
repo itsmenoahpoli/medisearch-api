@@ -52,6 +52,17 @@ export class MedicinesService extends BaseService {
   };
 
   public deleteMedicineById = async (id: number) => {
+    const medicine = await this.db.medicine.update({
+      where: { id },
+      data: {
+        deletedAt: this.convertDateToISO(this.dateNow()),
+      },
+    });
+
+    return medicine;
+  };
+
+  public forceDeleteMedicineById = async (id: number) => {
     const medicine = await this.db.medicine.delete({
       where: { id },
     });

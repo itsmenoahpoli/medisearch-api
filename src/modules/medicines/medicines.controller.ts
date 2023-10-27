@@ -62,6 +62,16 @@ export class MedicinesController extends BaseController {
     }
   };
 
+  public forceDeleteMedicineByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.medicinesService.forceDeleteMedicineById(Number(request.params.id));
+
+      return response.status(204).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public createMedicineHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const requestValidated = await this.validateRequestBody(MedicineDTO, request.body);
