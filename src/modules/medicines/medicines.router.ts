@@ -18,6 +18,7 @@ export class MedicinesRouter {
       .get("/:id", this.medicinesController.getMedicineByIdHandler)
       .patch("/:id", this.medicinesController.updateMedicineByIdHandler)
       .delete("/:id", this.medicinesController.deleteMedicineByIdHandler)
+      .delete("/force-delete/:id", this.medicinesController.forceDeleteMedicineByIdHandler)
       .post("/", this.medicinesController.createMedicineHandler);
   }
 
