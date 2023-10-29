@@ -1,10 +1,9 @@
-import { exit } from "process";
 import { MainApp } from "~/app.bootstrap";
 
 try {
-    const mainApp = new MainApp();
+  const mainApp = new MainApp();
 
-    mainApp.runApp();
+  mainApp.runApp();
 } catch (error) {
-    exit(1);
+  process.exit(1);
 }
