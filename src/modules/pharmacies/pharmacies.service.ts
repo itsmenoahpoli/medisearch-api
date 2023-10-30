@@ -43,6 +43,7 @@ export class PharmaciesService extends BaseService {
       data: {
         ...pharmacyData,
         nameSlug: slugify(pharmacyData.name),
+        storeHours: pharmacyData.storeHours.toUpperCase(),
       },
     });
 
@@ -73,6 +74,7 @@ export class PharmaciesService extends BaseService {
       data: {
         ...pharmacyData,
         nameSlug: slugify(pharmacyData.name),
+        storeHours: pharmacyData.storeHours.toUpperCase(),
       },
     });
 
