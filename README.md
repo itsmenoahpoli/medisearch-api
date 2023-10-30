@@ -36,8 +36,8 @@ npm run dev
 - [x] Go to localhost database
 - [x] Drop all tables
 - [x] Open terminal in project folder directory
-- [x] Run `npx prisma db push
-- [x] Run `npx prisma db seed
+- [x] Run `npx prisma db push`
+- [x] Run `npx prisma db seed`
 
 ### To-do
 
