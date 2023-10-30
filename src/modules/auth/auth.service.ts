@@ -20,10 +20,7 @@ export class AuthService extends BaseService {
 
     if (!user) return { user: null };
 
-    if (
-      (authType === TAuthType.ADMIN && user.userType === TAuthType.CUSTOMER) ||
-      (authType === TAuthType.CUSTOMER && user.userType === TAuthType.ADMIN)
-    ) {
+    if (authType !== user.userType) {
       return {
         user: null,
         message: "INCORRECT_AUTH_TYPE_FOR_USER_TYPE",

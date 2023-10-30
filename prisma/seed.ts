@@ -24,7 +24,7 @@ async function main() {
           userType: "admin",
         },
         {
-          accountNo: "useradmin08172023",
+          accountNo: "userpharmacy08172023",
           name: "Pharmacy Staff",
           email: "pharmastaff@domain.com",
           password: await hashPassword("1234567890"),
