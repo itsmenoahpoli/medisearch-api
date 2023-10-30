@@ -1,5 +1,6 @@
 import { ClassConstructor, plainToClass } from "class-transformer";
 import { validate } from "class-validator";
+import { JWTService } from "~/services";
 
 type TErrorResult = {
   isError: boolean;
@@ -11,6 +12,12 @@ type TErrorResult = {
 };
 
 export class BaseController {
+  protected jwtService: JWTService;
+
+  constructor() {
+    this.jwtService = new JWTService();
+  }
+
   protected validateRequestBody = async <T extends ClassConstructor<any>>(dto: T, obj: object): Promise<TErrorResult> => {
     const transformedClass = plainToClass(dto, obj);
     const errors = await validate(transformedClass);
@@ -29,5 +36,9 @@ export class BaseController {
       isError: false,
       errors: undefined,
     };
+  };
+
+  protected getAuthUser = (headerVal: string) => {
+    return this.jwtService.decodeToken(headerVal.split(" ")[1]);
   };
 }

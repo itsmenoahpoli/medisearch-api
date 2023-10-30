@@ -6,13 +6,11 @@ import { CredentialsDTO } from "~/modules/auth/auth.dto";
 
 export class AuthController extends BaseController {
   private authService: AuthService;
-  private jwtService: JWTService;
 
   constructor() {
     super();
 
     this.authService = new AuthService();
-    this.jwtService = new JWTService();
   }
 
   public currentAuthUserHandler = async (request: Request, response: Response, next: NextFunction) => {
@@ -49,10 +47,9 @@ export class AuthController extends BaseController {
   public logoutHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       // @ts-ignore
-      const user = request.user;
-      const authToken = request.headers["authorization"]?.split(" ")[1] as string;
+      const user = this.getAuthUser(request.headers["authorization"]);
 
-      const data = await this.authService.unauthenticateCredentials(user, authToken);
+      const data = await this.authService.unauthenticateCredentials(user, request.headers["authorization"]?.split(" ")[1] as string);
 
       return response.status(200).json(data);
     } catch (error) {
@@ -62,7 +59,7 @@ export class AuthController extends BaseController {
 
   public getMyProfileHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      const user = this.jwtService.decodeToken(request.headers["authorization"]?.split(" ")[1] as string);
+      const user = this.getAuthUser(request.headers["authorization"] as string);
 
       return response.status(200).json(user);
     } catch (error) {
