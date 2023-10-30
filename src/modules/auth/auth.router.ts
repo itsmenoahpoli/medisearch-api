@@ -19,6 +19,7 @@ export class AuthRouter extends MiddlewaresService {
     this.router
       .get("/me", this.getMiddleware("requireAuth"), this.authController.currentAuthUserHandler)
       .post("/logout", this.getMiddleware("requireAuth"), this.authController.logoutHandler)
+      .get("/my-profile", this.getMiddleware("requireAuth"), this.authController.getMyProfileHandler)
       .post("/login", this.authController.loginHandler);
   }
 

@@ -8,6 +8,7 @@ export class MedicinesService extends BaseService {
   }
 
   public getMedicines = async () => {
+    // TODO: Add search filter
     const medicines = await this.db.medicine.findMany({
       orderBy: [{ id: "desc" }],
     });

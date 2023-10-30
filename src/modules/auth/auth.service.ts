@@ -57,4 +57,16 @@ export class AuthService extends BaseService {
       message: "USER_UNAUTHENTICATED",
     };
   };
+
+  public getMyProfile = async (userId: number) => {
+    const user = await this.db.user.findUnique({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (!user) return null;
+
+    return user;
+  };
 }

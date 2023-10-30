@@ -1,11 +1,12 @@
 import { RequireAuthMiddleware } from "~/middlewares";
 
+type TMiddlewareKeys = "requireAuth";
 export class MiddlewaresService {
-	public getMiddleware(name: string) {
-		const middlewares: any = {
-			requireAuth: RequireAuthMiddleware,
-		};
+  public getMiddleware(name: TMiddlewareKeys) {
+    const middlewares: any = {
+      requireAuth: RequireAuthMiddleware,
+    };
 
-		return middlewares[name];
-	}
+    return middlewares[name];
+  }
 }

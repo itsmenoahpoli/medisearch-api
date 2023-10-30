@@ -30,7 +30,11 @@ export class JWTService extends BaseService {
     throw Error("Unauthorized");
   };
 
-  public revokeToken = async (token: string) => {
-    // TODO: Revoke token for logout
+  // public revokeToken = async (token: string) => {
+  //   // TODO: Revoke token for logout
+  // };
+
+  public decodeToken = (token: string) => {
+    return jwt.verify(token, this.JWT_SECRET);
   };
 }

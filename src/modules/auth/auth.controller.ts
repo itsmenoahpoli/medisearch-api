@@ -1,15 +1,18 @@
 import { Request, Response, NextFunction } from "express";
 import { BaseController } from "~/modules/base.controller";
 import { AuthService } from "~/modules/auth/auth.service";
+import { JWTService } from "~/services";
 import { CredentialsDTO } from "~/modules/auth/auth.dto";
 
 export class AuthController extends BaseController {
   private authService: AuthService;
+  private jwtService: JWTService;
 
   constructor() {
     super();
 
     this.authService = new AuthService();
+    this.jwtService = new JWTService();
   }
 
   public currentAuthUserHandler = async (request: Request, response: Response, next: NextFunction) => {
@@ -52,6 +55,16 @@ export class AuthController extends BaseController {
       const data = await this.authService.unauthenticateCredentials(user, authToken);
 
       return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getMyProfileHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const user = this.jwtService.decodeToken(request.headers["authorization"]?.split(" ")[1] as string);
+
+      return response.status(200).json(user);
     } catch (error) {
       next(error);
     }

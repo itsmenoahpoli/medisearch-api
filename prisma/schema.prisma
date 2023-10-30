@@ -29,6 +29,7 @@ model UserAddress {
   id        Int      @id @default(autoincrement())
   label     String
   address   String   @db.Text
+  coords    String   @db.Text
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   userId    Int

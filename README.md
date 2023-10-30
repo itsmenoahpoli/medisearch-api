@@ -29,14 +29,23 @@ npx prisma db push
 npx prisma db seed
 
 npm run dev
-
 ```
+
+### How to manual reset database
+
+- [x] Go to localhost database
+- [x] Drop all tables
+- [x] Open terminal in project folder directory
+- [x] Run `npx prisma db push
+- [x] Run `npx prisma db seed
 
 ### To-do
 
-- [ ] Authentication API (Login, logout, register, reset password)
+- [x] Authentication API (Login, logout, register, reset password)
 - [ ] ADMIN - Pharmacy Account Verification API
 - [ ] ADMIN - Map Assigning (coordinates) API
+- [x] ADMIN - Medicines CRUD API
+- [x] ADMIN - Pharmacies CRUD API
 - [ ] PHARMACY - POS API
 - [ ] PHARMACY - Reservation API
 - [ ] PHARMACY - Manage My Account API
