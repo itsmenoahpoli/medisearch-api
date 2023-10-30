@@ -2,6 +2,7 @@ import { Application } from "express";
 import { SystemRouter } from "~/modules/system/system.router";
 import { AuthRouter } from "~/modules/auth/auth.router";
 import { MedicinesRouter } from "~/modules/medicines/medicines.router";
+import { PharmaciesRouter } from "~/modules/pharmacies/pharmacies.router";
 
 const routesConfig = [
   {
@@ -15,6 +16,10 @@ const routesConfig = [
   {
     route: "/medicines",
     router: new MedicinesRouter().getRoutes,
+  },
+  {
+    route: "/pharmacies",
+    router: new PharmaciesRouter().getRoutes,
   },
 ];
 
