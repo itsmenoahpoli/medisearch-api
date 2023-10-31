@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { BaseController } from "~/modules/base.controller";
-import { CustomersService } from "~/modules/customers/cusstomers.service";
+import { CustomersService } from "~/modules/customers/customers.service";
 
 export class CustomersController extends BaseController {
   constructor() {

@@ -16,6 +16,7 @@ export class MedicinesRouter {
     this.router
       .get("/", this.medicinesController.getMedicinesHandler)
       .get("/:id", this.medicinesController.getMedicineByIdHandler)
+      .get("/search/:itemNumber", this.medicinesController.searchMedicineHandler)
       .patch("/:id", this.medicinesController.updateMedicineByIdHandler)
       .delete("/:id", this.medicinesController.deleteMedicineByIdHandler)
       .delete("/force-delete/:id", this.medicinesController.forceDeleteMedicineByIdHandler)

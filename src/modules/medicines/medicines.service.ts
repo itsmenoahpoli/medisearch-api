@@ -7,8 +7,19 @@ export class MedicinesService extends BaseService {
     super();
   }
 
+  public searchMedicine = async (itemNumber: string) => {
+    const medicine = await this.db.medicine.findUnique({
+      where: {
+        itemNumber,
+      },
+    });
+
+    if (!medicine) return null;
+
+    return medicine;
+  };
+
   public getMedicines = async () => {
-    // TODO: Add search filter
     const medicines = await this.db.medicine.findMany({
       orderBy: [{ id: "desc" }],
     });
