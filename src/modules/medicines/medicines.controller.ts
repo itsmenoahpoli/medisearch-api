@@ -28,7 +28,7 @@ export class MedicinesController extends BaseController {
 
   public getMedicinesHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      const data = await this.medicinesService.getMedicines();
+      const data = await this.medicinesService.getMedicines(request.query);
 
       return response.status(200).json(data);
     } catch (error) {
