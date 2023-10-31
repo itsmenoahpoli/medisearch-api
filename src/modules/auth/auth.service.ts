@@ -1,6 +1,7 @@
 import { BaseService } from "~/modules/base.service";
 import { JWTService } from "~/services";
 import { TCredentials, TAuthType } from "~/modules/auth/auth.dto";
+import { verifyPassword } from "~/utilities/password.util";
 
 export class AuthService extends BaseService {
   private jwtService: JWTService;
@@ -19,6 +20,13 @@ export class AuthService extends BaseService {
     });
 
     if (!user) return { user: null };
+
+    if (user && !(await verifyPassword(credentials.password, user.password))) {
+      return {
+        user: null,
+        message: "INCORRECT_PASSWORD_FOR_ACCOUNT",
+      };
+    }
 
     if (authType !== user.userType) {
       return {
@@ -68,5 +76,9 @@ export class AuthService extends BaseService {
     if (!user) return null;
 
     return user;
+  };
+
+  public updateMyProfile = async (profileData: any) => {
+    //
   };
 }

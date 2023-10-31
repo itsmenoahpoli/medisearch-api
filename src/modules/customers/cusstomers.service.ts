@@ -5,7 +5,13 @@ export class CustomersService extends BaseService {
     super();
   }
 
-  public getMyTransactions = async (userId: number) => {
-    //
+  public getCustomerAddresses = async (userId: number) => {
+    const addresses = await this.db.userAddress.findMany({
+      where: {
+        userId,
+      },
+    });
+
+    return addresses;
   };
 }

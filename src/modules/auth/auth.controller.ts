@@ -66,4 +66,11 @@ export class AuthController extends BaseController {
       next(error);
     }
   };
+
+  public updateMyProfileHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+    } catch (error) {
+      next(error);
+    }
+  };
 }
