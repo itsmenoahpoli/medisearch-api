@@ -52,7 +52,7 @@ model Pharmacy {
   name              String             @unique
   nameSlug          String             @unique
   address           String             @db.Text
-  coords            String?            @db.Text
+  coords            String             @db.Text
   storeHours        String
   contactNumber     String
   reservedMedicines ReservedMedicine[]
