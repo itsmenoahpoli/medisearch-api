@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export type TPharmacy = {
   name: string;
@@ -7,6 +7,13 @@ export type TPharmacy = {
   coords: string;
   storeHours: string;
   contactNumber: string;
+};
+
+export type TPharmacyRating = {
+  pharmacyId: number;
+  userId: number;
+  rating: number;
+  feedback?: string;
 };
 
 export class PharmacyDTO implements TPharmacy {
@@ -29,4 +36,22 @@ export class PharmacyDTO implements TPharmacy {
   @IsNotEmpty()
   @IsString()
   contactNumber: string;
+}
+
+export class PharmacyRatingDTO implements TPharmacyRating {
+  @IsNotEmpty()
+  @IsInt()
+  pharmacyId: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  userId: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  rating: number;
+
+  @IsOptional()
+  @IsString()
+  feedback: string;
 }

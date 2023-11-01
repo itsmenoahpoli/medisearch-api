@@ -1,5 +1,5 @@
 import { BaseService } from "~/modules/base.service";
-import { TPharmacy } from "~/modules/pharmacies/pharmacies.dto";
+import { TPharmacy, TPharmacyRating } from "~/modules/pharmacies/pharmacies.dto";
 import { slugify } from "~/utilities/string.util";
 
 export class PharmaciesService extends BaseService {
@@ -79,5 +79,23 @@ export class PharmaciesService extends BaseService {
     });
 
     return pharmacy;
+  };
+
+  public getPharmacyRatings = async () => {
+    const pharmacyRatings = await this.db.pharmacyRating.findMany({
+      orderBy: [{ id: "desc" }],
+    });
+
+    return pharmacyRatings;
+  };
+
+  public createPharmacyRating = async (pharmacyRatingData: TPharmacyRating) => {
+    const pharmacyRating = await this.db.pharmacyRating.create({
+      data: {
+        ...pharmacyRatingData,
+      },
+    });
+
+    return pharmacyRating;
   };
 }

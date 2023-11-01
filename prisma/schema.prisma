@@ -11,19 +11,20 @@ datasource db {
 }
 
 model User {
-  id              Int             @id @default(autoincrement())
-  accountNo       String          @unique
+  id              Int              @id @default(autoincrement())
+  accountNo       String           @unique
   name            String
-  email           String          @unique
+  email           String           @unique
   password        String
   userType        String
-  accountVerified Boolean         @default(false)
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  accountVerified Boolean          @default(false)
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
   userJWT         UserJWT[]
   userAddresses   UserAddress[]
   customerOrders  CustomerOrder[]
+  pharmacyRatings PharmacyRating[]
 }
 
 model UserAddress {
@@ -59,6 +60,19 @@ model Pharmacy {
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   deletedAt         DateTime?
+  pharmacyRatings   PharmacyRating[]
+}
+
+model PharmacyRating {
+  id         Int      @id @default(autoincrement())
+  rating     Int
+  feedback   String?
+  pharmacyId Int
+  userId     Int
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  pharmacy   Pharmacy @relation(references: [id], fields: [pharmacyId])
+  user       User     @relation(references: [id], fields: [userId])
 }
 
 model Medicine {
@@ -74,7 +88,7 @@ model Medicine {
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
-  MedicineRating  MedicineRating[]
+  medicineRatings MedicineRating[]
 }
 
 model MedicineRating {
@@ -97,10 +111,10 @@ model ReservedMedicine {
 }
 
 model CustomerOrder {
-  id             Int              @id @default(autoincrement())
-  userId         Int
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  user           User             @relation(references: [id], fields: [userId])
-  MedicineRating MedicineRating[]
+  id              Int              @id @default(autoincrement())
+  userId          Int
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+  user            User             @relation(references: [id], fields: [userId])
+  medicineRatings MedicineRating[]
 }

@@ -102,7 +102,17 @@ export class MedicinesController extends BaseController {
     }
   };
 
-  public createMedicineRating = async (request: Request, response: Response, next: NextFunction) => {
+  public getMedicineRatingsHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.medicinesService.getMedicineRatings();
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public createMedicineRatingHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const requestValidated = await this.validateRequestBody(MedicineRatingDTO, request.body);
 

@@ -102,7 +102,21 @@ export class MedicinesService extends BaseService {
     return medicine;
   };
 
+  public getMedicineRatings = async () => {
+    const medicineRatings = await this.db.medicineRating.findMany({
+      orderBy: [{ id: "desc" }],
+    });
+
+    return medicineRatings;
+  };
+
   public createMedicineRating = async (medicineRatingData: TMedicineRating) => {
-    //
+    const medicineRating = await this.db.medicineRating.create({
+      data: {
+        ...medicineRatingData,
+      },
+    });
+
+    return medicineRating;
   };
 }

@@ -14,6 +14,8 @@ export class MedicinesRouter {
 
   public setupRoutes() {
     this.router
+      .get("/ratings", this.medicinesController.getMedicineRatingsHandler)
+      .post("/ratings", this.medicinesController.createMedicineRatingHandler)
       .get("/", this.medicinesController.getMedicinesHandler)
       .get("/:id", this.medicinesController.getMedicineByIdHandler)
       .get("/search/:itemNumber", this.medicinesController.searchMedicineHandler)
