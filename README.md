@@ -43,15 +43,15 @@ npm run dev
 
 - [x] Authentication API (Login, logout, register, reset password)
 - [ ] ADMIN - Pharmacy Account Verification API
-- [ ] ADMIN - Map Assigning (coordinates) API
+- [x] ADMIN - Map Assigning (coordinates) API
 - [x] ADMIN - Medicines CRUD API
 - [x] ADMIN - Pharmacies CRUD API
 - [ ] PHARMACY - POS API
 - [ ] PHARMACY - Reservation API
-- [ ] PHARMACY - Manage My Account API
-- [ ] MOBILE - Medicine Search API
-- [ ] MOBILE - Available items in every store API
+- [x] PHARMACY - Manage My Account API
+- [x] MOBILE - Medicine Search API
+- [x] MOBILE - Available items in every store API
 - [ ] MOBILE - Medicine Reservation API
 - [ ] MOBILE - Track Reservation API
-- [ ] MOBILE - Add/Edit My Addresses API
-- [ ] MOBILE - Manage My Account API
+- [x] MOBILE - Add/Edit My Addresses API
+- [x] MOBILE - Manage My Account API
