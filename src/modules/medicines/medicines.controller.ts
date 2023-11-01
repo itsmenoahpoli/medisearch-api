@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { BaseController } from "~/modules/base.controller";
 import { MedicinesService } from "~/modules/medicines/medicines.service";
-import { MedicineDTO } from "~/modules/medicines/medicines.dto";
+import { MedicineDTO, MedicineRatingDTO } from "~/modules/medicines/medicines.dto";
 
 export class MedicinesController extends BaseController {
   private medicinesService: MedicinesService;
@@ -95,6 +95,22 @@ export class MedicinesController extends BaseController {
       }
 
       const data = await this.medicinesService.createMedicine(request.body);
+
+      return response.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public createMedicineRating = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const requestValidated = await this.validateRequestBody(MedicineRatingDTO, request.body);
+
+      if (requestValidated.isError) {
+        return next({ type: "validation-error", errors: requestValidated.errors });
+      }
+
+      const data = await this.medicinesService.createMedicineRating(request.body);
 
       return response.status(201).json(data);
     } catch (error) {

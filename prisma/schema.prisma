@@ -11,19 +11,19 @@ datasource db {
 }
 
 model User {
-  id              Int              @id @default(autoincrement())
-  accountNo       String           @unique
+  id              Int             @id @default(autoincrement())
+  accountNo       String          @unique
   name            String
-  email           String           @unique
+  email           String          @unique
   password        String
   userType        String
-  accountVerified Boolean          @default(false)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
+  accountVerified Boolean         @default(false)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
   deletedAt       DateTime?
   userJWT         UserJWT[]
   userAddresses   UserAddress[]
-  customerOrders  CustomerOrders[]
+  customerOrders  CustomerOrder[]
 }
 
 model UserAddress {
@@ -62,18 +62,30 @@ model Pharmacy {
 }
 
 model Medicine {
-  id              Int       @id @default(autoincrement())
-  itemNumber      String    @unique
-  name            String    @unique
-  nameSlug        String    @unique
+  id              Int              @id @default(autoincrement())
+  itemNumber      String           @unique
+  name            String           @unique
+  nameSlug        String           @unique
   category        String
   price           Float
   quantity        Int
   expirationDate  DateTime
   reservationDate DateTime
-  createdAt       DateTime  @default(now())
-  updatedAt       DateTime  @updatedAt
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
+  MedicineRating  MedicineRating[]
+}
+
+model MedicineRating {
+  id              Int           @id @default(autoincrement())
+  rating          Int
+  medicineId      Int
+  customerOrderId Int
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  medicine        Medicine      @relation(references: [id], fields: [medicineId])
+  customerOrder   CustomerOrder @relation(references: [id], fields: [customerOrderId])
 }
 
 model ReservedMedicine {
@@ -84,10 +96,11 @@ model ReservedMedicine {
   pharmacy   Pharmacy @relation(references: [id], fields: [pharmacyId])
 }
 
-model CustomerOrders {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  user      User     @relation(references: [id], fields: [userId])
+model CustomerOrder {
+  id             Int              @id @default(autoincrement())
+  userId         Int
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  user           User             @relation(references: [id], fields: [userId])
+  MedicineRating MedicineRating[]
 }

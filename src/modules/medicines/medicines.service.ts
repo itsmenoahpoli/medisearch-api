@@ -1,5 +1,5 @@
 import { BaseService } from "~/modules/base.service";
-import { TMedicine } from "~/modules/medicines/medicines.dto";
+import { TMedicine, TMedicineRating } from "~/modules/medicines/medicines.dto";
 import { slugify } from "~/utilities/string.util";
 
 type TMedicinesReqQuery = {
@@ -100,5 +100,9 @@ export class MedicinesService extends BaseService {
     });
 
     return medicine;
+  };
+
+  public createMedicineRating = async (medicineRatingData: TMedicineRating) => {
+    //
   };
 }
