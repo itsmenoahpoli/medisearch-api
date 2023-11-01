@@ -1,4 +1,5 @@
 import { BaseService } from "~/modules/base.service";
+import { TUserAddress } from "~/modules/customers/customers.dto";
 
 export class CustomersService extends BaseService {
   constructor() {
@@ -13,5 +14,25 @@ export class CustomersService extends BaseService {
     });
 
     return addresses;
+  };
+
+  public addCustomerAddress = async (addressData: TUserAddress) => {
+    const address = await this.db.userAddress.create({
+      data: {
+        ...addressData,
+      },
+    });
+
+    return address;
+  };
+
+  public deleteCustomerAddress = async (addressId: number) => {
+    const address = await this.db.userAddress.delete({
+      where: {
+        id: addressId,
+      },
+    });
+
+    return address;
   };
 }

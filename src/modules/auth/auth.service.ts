@@ -78,7 +78,16 @@ export class AuthService extends BaseService {
     return user;
   };
 
-  public updateMyProfile = async (profileData: any) => {
-    //
+  public updateMyProfile = async (userId: number, profileData: any) => {
+    const profile = await this.db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        ...profileData,
+      },
+    });
+
+    return profile;
   };
 }

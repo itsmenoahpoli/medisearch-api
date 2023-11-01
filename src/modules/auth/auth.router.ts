@@ -20,6 +20,7 @@ export class AuthRouter extends MiddlewaresService {
       .get("/me", this.getMiddleware("requireAuth"), this.authController.currentAuthUserHandler)
       .post("/logout", this.getMiddleware("requireAuth"), this.authController.logoutHandler)
       .get("/my-profile", this.getMiddleware("requireAuth"), this.authController.getMyProfileHandler)
+      .patch("/my-profile/update", this.getMiddleware("requireAuth"), this.authController.updateMyProfileHandler)
       .post("/login", this.authController.loginHandler);
   }
 
