@@ -20,6 +20,7 @@ export class CustomersService extends BaseService {
     const address = await this.db.userAddress.create({
       data: {
         ...addressData,
+        coords: JSON.stringify(addressData.coords),
       },
     });
 

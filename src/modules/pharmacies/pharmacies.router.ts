@@ -17,6 +17,7 @@ export class PharmaciesRouter {
       .get("/ratings", this.pharmaciesController.getPharmacyRatingsHandler)
       .post("/ratings", this.pharmaciesController.createPharmacyRatingHandler)
       .get("/", this.pharmaciesController.getPharmaciesHandler)
+      .get("/city/:city", this.pharmaciesController.getPharmacyByItemCityHandler)
       .get("/:id", this.pharmaciesController.getPharmacyByIdHandler)
       .patch("/:id", this.pharmaciesController.updatePharmacyByIdHandler)
       .delete("/:id", this.pharmaciesController.deletePharmacyByIdHandler)

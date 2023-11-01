@@ -36,6 +36,16 @@ export class PharmaciesController extends BaseController {
     }
   };
 
+  public getPharmacyByItemCityHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.pharmaciesService.getPharmacyByCity(request.params.city);
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public updatePharmacyByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const requestValidated = await this.validateRequestBody(PharmacyDTO, request.body);

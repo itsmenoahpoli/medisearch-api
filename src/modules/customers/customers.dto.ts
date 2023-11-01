@@ -1,9 +1,15 @@
-import { IsNotEmpty, IsString, IsNumber } from "class-validator";
+import { IsNotEmpty, IsString, IsNumber, IsObject } from "class-validator";
+import { Type } from "class-transformer";
+
+export type TUserAddressCoords = {
+  long: string;
+  lat: string;
+};
 
 export type TUserAddress = {
   label: string;
   address: string;
-  coords: string;
+  coords: TUserAddressCoords;
   userId: number;
 };
 
@@ -17,8 +23,8 @@ export class UserAddressDTO implements TUserAddress {
   address: string;
 
   @IsNotEmpty()
-  @IsString()
-  coords: string;
+  @IsObject()
+  coords: TUserAddressCoords;
 
   @IsNotEmpty()
   @IsNumber()

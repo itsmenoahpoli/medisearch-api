@@ -1,3 +1,4 @@
+import { Pharmacy } from "@prisma/client";
 import { BaseService } from "~/modules/base.service";
 import { TPharmacy, TPharmacyRating } from "~/modules/pharmacies/pharmacies.dto";
 import { slugify } from "~/utilities/string.util";
@@ -25,16 +26,10 @@ export class PharmaciesService extends BaseService {
     return pharmacy;
   };
 
-  public getPharmacyByItemNumber = async (id: number) => {
-    const pharmacy = await this.db.pharmacy.findUnique({
-      where: {
-        id,
-      },
-    });
+  public getPharmacyByCity = async (city: string) => {
+    const pharmacies = await this.db.pharmacy.findMany();
 
-    if (!pharmacy) return null;
-
-    return pharmacy;
+    return pharmacies.filter((pharmacy: Pharmacy) => pharmacy.address.toLowerCase().includes(city.toLowerCase()));
   };
 
   public updatePharmacyById = async (pharmacyData: TPharmacy, id: number) => {

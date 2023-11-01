@@ -3,6 +3,7 @@ import { SystemRouter } from "~/modules/system/system.router";
 import { AuthRouter } from "~/modules/auth/auth.router";
 import { MedicinesRouter } from "~/modules/medicines/medicines.router";
 import { PharmaciesRouter } from "~/modules/pharmacies/pharmacies.router";
+import { CustomersRouter } from "~/modules/customers/customers.router";
 
 const routesConfig = [
   {
@@ -20,6 +21,10 @@ const routesConfig = [
   {
     route: "/pharmacies",
     router: new PharmaciesRouter().getRoutes,
+  },
+  {
+    route: "/customers",
+    router: new CustomersRouter().getRoutes,
   },
 ];
 
