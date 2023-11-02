@@ -12,6 +12,7 @@ export type TPharmacy = {
 export type TPharmacyRating = {
   pharmacyId: number;
   userId: number;
+  customerOrderId: number;
   rating: number;
   feedback?: string;
 };
@@ -46,6 +47,10 @@ export class PharmacyRatingDTO implements TPharmacyRating {
   @IsNotEmpty()
   @IsInt()
   userId: number;
+
+  @IsNotEmpty()
+  @IsInt()
+  customerOrderId: number;
 
   @IsNotEmpty()
   @IsInt()

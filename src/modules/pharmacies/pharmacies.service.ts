@@ -79,6 +79,11 @@ export class PharmaciesService extends BaseService {
   public getPharmacyRatings = async () => {
     const pharmacyRatings = await this.db.pharmacyRating.findMany({
       orderBy: [{ id: "desc" }],
+      include: {
+        customerOrder: true,
+        pharmacy: true,
+        user: true,
+      },
     });
 
     return pharmacyRatings;

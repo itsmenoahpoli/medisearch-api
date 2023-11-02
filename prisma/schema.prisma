@@ -65,15 +65,17 @@ model Pharmacy {
 }
 
 model PharmacyRating {
-  id         Int      @id @default(autoincrement())
-  rating     Int
-  feedback   String?
-  pharmacyId Int
-  userId     Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  pharmacy   Pharmacy @relation(references: [id], fields: [pharmacyId])
-  user       User     @relation(references: [id], fields: [userId])
+  id              Int           @id @default(autoincrement())
+  rating          Int
+  feedback        String?
+  pharmacyId      Int
+  customerOrderId Int           @unique
+  userId          Int
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+  pharmacy        Pharmacy      @relation(references: [id], fields: [pharmacyId])
+  customerOrder   CustomerOrder @relation(references: [id], fields: [customerOrderId])
+  user            User          @relation(references: [id], fields: [userId])
 }
 
 model Medicine {
@@ -96,7 +98,7 @@ model MedicineRating {
   id              Int           @id @default(autoincrement())
   rating          Int
   medicineId      Int
-  customerOrderId Int
+  customerOrderId Int           @unique
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
   medicine        Medicine      @relation(references: [id], fields: [medicineId])
@@ -116,10 +118,14 @@ model ReservedMedicine {
 }
 
 model CustomerOrder {
-  id              Int              @id @default(autoincrement())
-  userId          Int
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  user            User             @relation(references: [id], fields: [userId])
-  medicineRatings MedicineRating[]
+  id               Int             @id @default(autoincrement())
+  type             String
+  cartContent      String          @db.Text
+  userId           Int
+  medicineRatingId Int
+  createdAt        DateTime        @default(now())
+  updatedAt        DateTime        @updatedAt
+  user             User            @relation(references: [id], fields: [userId])
+  medicineRating   MedicineRating?
+  pharmacyRating   PharmacyRating?
 }
