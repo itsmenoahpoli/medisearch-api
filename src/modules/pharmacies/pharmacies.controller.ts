@@ -22,6 +22,16 @@ export class PharmaciesController extends BaseController {
     }
   };
 
+  public getArchivedPharmaciesHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.pharmaciesService.getArchivedPharmacies();
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getPharmacyByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const data = await this.pharmaciesService.getPharmacyById(Number(request.params.id));
@@ -75,6 +85,16 @@ export class PharmaciesController extends BaseController {
   public forceDeletePharmacyByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const data = await this.pharmaciesService.forceDeletePharmacyById(Number(request.params.id));
+
+      return response.status(204).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public restoreArchivedPharmacyByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.pharmaciesService.restoreArchivedPharmacyById(Number(request.params.pharmacyId));
 
       return response.status(204).json(data);
     } catch (error) {

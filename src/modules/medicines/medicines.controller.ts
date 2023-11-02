@@ -100,6 +100,16 @@ export class MedicinesController extends BaseController {
     }
   };
 
+  public restoreArhivedMedicineByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.medicinesService.restoreArchivedMedicineById(Number(request.params.medicineId));
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public createMedicineHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const requestValidated = await this.validateRequestBody(MedicineDTO, request.body);

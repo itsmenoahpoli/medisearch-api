@@ -16,6 +16,8 @@ export class PharmaciesRouter {
     this.router
       .get("/ratings", this.pharmaciesController.getPharmacyRatingsHandler)
       .post("/ratings", this.pharmaciesController.createPharmacyRatingHandler)
+      .get("/archived", this.pharmaciesController.getArchivedPharmaciesHandler)
+      .post("/archived/:pharmacyId/restore", this.pharmaciesController.restoreArchivedPharmacyByIdHandler)
       .get("/", this.pharmaciesController.getPharmaciesHandler)
       .get("/city/:city", this.pharmaciesController.getPharmacyByItemCityHandler)
       .get("/:id", this.pharmaciesController.getPharmacyByIdHandler)
