@@ -11,6 +11,9 @@ export class PharmaciesService extends BaseService {
   public getPharmacies = async () => {
     const pharmarcies = await this.db.pharmacy.findMany({
       orderBy: [{ id: "desc" }],
+      where: {
+        deletedAt: null,
+      },
     });
 
     return pharmarcies;
@@ -30,6 +33,18 @@ export class PharmaciesService extends BaseService {
     const pharmacies = await this.db.pharmacy.findMany();
 
     return pharmacies.filter((pharmacy: Pharmacy) => pharmacy.address.toLowerCase().includes(city.toLowerCase()));
+  };
+
+  public getArchivedPharmacies = async () => {
+    const pharmacies = await this.db.pharmacy.findMany({
+      where: {
+        deletedAt: {
+          not: null,
+        },
+      },
+    });
+
+    return pharmacies;
   };
 
   public updatePharmacyById = async (pharmacyData: TPharmacy, id: number) => {
@@ -62,6 +77,15 @@ export class PharmaciesService extends BaseService {
     });
 
     return pharmacy;
+  };
+
+  public restoreArchivedPharmacyById = async (id: number) => {
+    const pharmacy = await this.db.pharmacy.update({
+      where: { id },
+      data: {
+        deletedAt: null,
+      },
+    });
   };
 
   public createPharmacy = async (pharmacyData: TPharmacy) => {

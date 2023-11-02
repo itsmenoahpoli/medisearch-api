@@ -22,9 +22,25 @@ export class MedicinesService extends BaseService {
     return medicine;
   };
 
+  public getArchivedMedicines = async () => {
+    const medicines = await this.db.medicine.findMany({
+      orderBy: [{ id: "desc" }],
+      where: {
+        deletedAt: {
+          not: null,
+        },
+      },
+    });
+
+    return medicines;
+  };
+
   public getMedicines = async (query: TMedicinesReqQuery) => {
     const medicines = await this.db.medicine.findMany({
       orderBy: [{ id: "desc" }],
+      where: {
+        deletedAt: null,
+      },
     });
 
     if (query.name) {
@@ -96,6 +112,17 @@ export class MedicinesService extends BaseService {
         nameSlug: slugify(medicineData.name),
         expirationDate: this.convertDateToISO(medicineData.expirationDate),
         reservationDate: this.convertDateToISO(medicineData.reservationDate),
+      },
+    });
+
+    return medicine;
+  };
+
+  public restoreArchivedMedicineById = async (id: number) => {
+    const medicine = await this.db.medicine.update({
+      where: { id },
+      data: {
+        deletedAt: null,
       },
     });
 
