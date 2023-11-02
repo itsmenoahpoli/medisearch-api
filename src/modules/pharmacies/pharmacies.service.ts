@@ -21,7 +21,7 @@ export class PharmaciesService extends BaseService {
       where: { id },
     });
 
-    if (!pharmacy) return null;
+    if (!pharmacy) return "PHARMACY_NOT_FOUND";
 
     return pharmacy;
   };

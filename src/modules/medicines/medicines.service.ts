@@ -17,7 +17,7 @@ export class MedicinesService extends BaseService {
       },
     });
 
-    if (!medicine) return null;
+    if (!medicine) return "MEDICINE_NOT_FOUND";
 
     return medicine;
   };
@@ -39,7 +39,7 @@ export class MedicinesService extends BaseService {
       where: { id },
     });
 
-    if (!medicine) return null;
+    if (!medicine) return "MEDICINE_NOT_FOUND";
 
     return medicine;
   };
@@ -51,7 +51,7 @@ export class MedicinesService extends BaseService {
       },
     });
 
-    if (!medicine) return null;
+    if (!medicine) return "MEDICINE_NOT_FOUND";
 
     return medicine;
   };

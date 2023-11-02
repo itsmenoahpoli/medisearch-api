@@ -11,20 +11,21 @@ datasource db {
 }
 
 model User {
-  id              Int              @id @default(autoincrement())
-  accountNo       String           @unique
-  name            String
-  email           String           @unique
-  password        String
-  userType        String
-  accountVerified Boolean          @default(false)
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @updatedAt
-  deletedAt       DateTime?
-  userJWT         UserJWT[]
-  userAddresses   UserAddress[]
-  customerOrders  CustomerOrder[]
-  pharmacyRatings PharmacyRating[]
+  id               Int                @id @default(autoincrement())
+  accountNo        String             @unique
+  name             String
+  email            String             @unique
+  password         String
+  userType         String
+  accountVerified  Boolean            @default(false)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  deletedAt        DateTime?
+  userJWT          UserJWT[]
+  userAddresses    UserAddress[]
+  customerOrders   CustomerOrder[]
+  pharmacyRatings  PharmacyRating[]
+  reservedMedicine ReservedMedicine[]
 }
 
 model UserAddress {
@@ -56,11 +57,11 @@ model Pharmacy {
   coords            String             @db.Text
   storeHours        String
   contactNumber     String
-  reservedMedicines ReservedMedicine[]
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   deletedAt         DateTime?
   pharmacyRatings   PharmacyRating[]
+  reservedMedicines ReservedMedicine[]
 }
 
 model PharmacyRating {
@@ -103,11 +104,15 @@ model MedicineRating {
 }
 
 model ReservedMedicine {
-  id         Int      @id @default(autoincrement())
-  pharmacyId Int
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-  pharmacy   Pharmacy @relation(references: [id], fields: [pharmacyId])
+  id              Int      @id @default(autoincrement())
+  pharmacyId      Int
+  customerId      Int
+  quantity        Int
+  reservationDate DateTime
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  pharmacy        Pharmacy @relation(references: [id], fields: [pharmacyId])
+  customer        User     @relation(references: [id], fields: [customerId])
 }
 
 model CustomerOrder {

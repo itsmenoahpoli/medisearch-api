@@ -60,6 +60,10 @@ export class MedicinesController extends BaseController {
 
       const data = await this.medicinesService.updateMedicineById(request.body, Number(request.params.id));
 
+      if (!data) {
+        return response.status(404).json(data);
+      }
+
       return response.status(200).json(data);
     } catch (error) {
       next(error);
