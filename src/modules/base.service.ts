@@ -19,4 +19,8 @@ export class BaseService {
   public dateNow = () => {
     return dayjs().format("MM/DD/YYYY");
   };
+
+  public nowSs = () => {
+    return dayjs().format("ssZ");
+  };
 }

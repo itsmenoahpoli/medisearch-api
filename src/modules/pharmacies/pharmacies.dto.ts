@@ -7,6 +7,8 @@ export type TPharmacy = {
   coords: string;
   storeHours: string;
   contactNumber: string;
+  email: string;
+  password: string;
 };
 
 export type TPharmacyRating = {
@@ -37,6 +39,14 @@ export class PharmacyDTO implements TPharmacy {
   @IsNotEmpty()
   @IsString()
   contactNumber: string;
+
+  @IsNotEmpty()
+  @IsString()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
 }
 
 export class PharmacyRatingDTO implements TPharmacyRating {

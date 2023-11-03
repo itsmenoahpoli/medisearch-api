@@ -2,6 +2,7 @@ import { Pharmacy } from "@prisma/client";
 import { BaseService } from "~/modules/base.service";
 import { TPharmacy, TPharmacyRating } from "~/modules/pharmacies/pharmacies.dto";
 import { slugify } from "~/utilities/string.util";
+import { hashPassword } from "~/utilities/password.util";
 
 export class PharmaciesService extends BaseService {
   constructor() {
@@ -9,19 +10,25 @@ export class PharmaciesService extends BaseService {
   }
 
   public getPharmacies = async () => {
-    const pharmarcies = await this.db.pharmacy.findMany({
+    const pharmacies = await this.db.pharmacy.findMany({
       orderBy: [{ id: "desc" }],
       where: {
         deletedAt: null,
       },
+      include: {
+        user: true,
+      },
     });
 
-    return pharmarcies;
+    return pharmacies;
   };
 
   public getPharmacyById = async (id: number) => {
     const pharmacy = await this.db.pharmacy.findUnique({
       where: { id },
+      include: {
+        user: true,
+      },
     });
 
     if (!pharmacy) return "PHARMACY_NOT_FOUND";
@@ -86,14 +93,32 @@ export class PharmaciesService extends BaseService {
         deletedAt: null,
       },
     });
+
+    return pharmacy;
   };
 
   public createPharmacy = async (pharmacyData: TPharmacy) => {
+    const pharmacyUser = await this.db.user.create({
+      data: {
+        accountNo: Math.floor(Math.random() * 1000000) + "-PHARMAACCT",
+        name: slugify(pharmacyData.name).toUpperCase(),
+        email: pharmacyData.email,
+        password: await hashPassword(pharmacyData.password),
+        userType: "pharmacy_staff",
+      },
+    });
+
+    // @ts-ignore
+    delete pharmacyData.email;
+    // @ts-ignore
+    delete pharmacyData.password;
+
     const pharmacy = await this.db.pharmacy.create({
       data: {
         ...pharmacyData,
         nameSlug: slugify(pharmacyData.name),
         storeHours: pharmacyData.storeHours.toUpperCase(),
+        userId: pharmacyUser.id,
       },
     });
 

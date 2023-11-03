@@ -24,6 +24,7 @@ model User {
   userJWT          UserJWT[]
   userAddresses    UserAddress[]
   customerOrders   CustomerOrder[]
+  pharmacy         Pharmacy?
   pharmacyRatings  PharmacyRating[]
   reservedMedicine ReservedMedicine[]
 }
@@ -57,12 +58,14 @@ model Pharmacy {
   coords            String             @db.Text
   storeHours        String
   contactNumber     String
+  userId            Int                @unique
   createdAt         DateTime           @default(now())
   updatedAt         DateTime           @updatedAt
   deletedAt         DateTime?
   pharmacyRatings   PharmacyRating[]
   reservedMedicines ReservedMedicine[]
-  medicines Medicine[]
+  medicines         Medicine[]
+  user              User               @relation(references: [id], fields: [userId])
 }
 
 model PharmacyRating {
@@ -86,15 +89,15 @@ model Medicine {
   nameSlug        String           @unique
   category        String
   price           Float
-  quantity        Int 
-  pharmacyId Int
+  quantity        Int
+  pharmacyId      Int
   expirationDate  DateTime
   reservationDate DateTime
-  createdAt       DateTime         @default(now())        
+  createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
   medicineRatings MedicineRating[]
-  pharmacy Pharmacy @relation(references: [id], fields: [pharmacyId])
+  pharmacy        Pharmacy         @relation(references: [id], fields: [pharmacyId])
 }
 
 model MedicineRating {
