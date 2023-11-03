@@ -62,6 +62,7 @@ model Pharmacy {
   deletedAt         DateTime?
   pharmacyRatings   PharmacyRating[]
   reservedMedicines ReservedMedicine[]
+  medicines Medicine[]
 }
 
 model PharmacyRating {
@@ -85,13 +86,15 @@ model Medicine {
   nameSlug        String           @unique
   category        String
   price           Float
-  quantity        Int
+  quantity        Int 
+  pharmacyId Int
   expirationDate  DateTime
   reservationDate DateTime
-  createdAt       DateTime         @default(now())
+  createdAt       DateTime         @default(now())        
   updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
   medicineRatings MedicineRating[]
+  pharmacy Pharmacy @relation(references: [id], fields: [pharmacyId])
 }
 
 model MedicineRating {

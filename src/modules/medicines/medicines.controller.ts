@@ -46,6 +46,16 @@ export class MedicinesController extends BaseController {
     }
   };
 
+  public getMedicinesByPharmacyIdHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.medicinesService.getMedicinesByPharmacyId(Number(request.params.pharmacyId));
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public getMedicineByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const data = await this.medicinesService.getMedicineById(Number(request.params.id));

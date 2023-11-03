@@ -41,6 +41,9 @@ export class MedicinesService extends BaseService {
       where: {
         deletedAt: null,
       },
+      include: {
+        pharmacy: true
+      }
     });
 
     if (query.name) {
@@ -49,6 +52,16 @@ export class MedicinesService extends BaseService {
 
     return medicines;
   };
+
+  public getMedicinesByPharmacyId = async (pharmacyId: number) => {
+    const medicines = await this.db.medicine.findMany({
+      where: {
+        pharmacyId
+      }
+    })
+
+    return medicines
+  }
 
   public getMedicineById = async (id: number) => {
     const medicine = await this.db.medicine.findUnique({

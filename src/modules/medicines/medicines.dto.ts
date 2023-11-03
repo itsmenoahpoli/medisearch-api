@@ -6,6 +6,7 @@ export type TMedicine = {
   category: string;
   price: number;
   quantity: number;
+  pharmacyId: number;
   expirationDate: string;
   reservationDate: string;
 };
@@ -36,6 +37,10 @@ export class MedicineDTO implements TMedicine {
   @IsNotEmpty()
   @IsNumber()
   quantity: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  pharmacyId: number;
 
   @IsNotEmpty()
   @IsString()
