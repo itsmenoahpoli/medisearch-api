@@ -1,6 +1,6 @@
 import { BaseService } from "~/modules/base.service";
 import { JWTService } from "~/services";
-import { TCredentials, TAuthType } from "~/modules/auth/auth.dto";
+import { TCredentials, TAuthType, TCustomerRegister } from "~/modules/auth/auth.dto";
 import { verifyPassword } from "~/utilities/password.util";
 
 export class AuthService extends BaseService {
@@ -11,6 +11,28 @@ export class AuthService extends BaseService {
 
     this.jwtService = new JWTService();
   }
+
+  public customerRegister = async (customerData: TCustomerRegister) => {
+    const checkEmailExists = await this.db.user.count({
+      where: {
+        email: customerData.email,
+      },
+    });
+
+    if (checkEmailExists > 0) {
+      return "USER_EMAIL_ALREADY_USED";
+    }
+
+    const customer = await this.db.user.create({
+      data: {
+        ...customerData,
+        accountNo: "customer" + Math.floor(Math.random() * 1000000),
+        userType: "customer",
+      },
+    });
+
+    return customer;
+  };
 
   public authenticateCredentials = async (credentials: TCredentials, authType: TAuthType) => {
     const user = await this.db.user.findUnique({

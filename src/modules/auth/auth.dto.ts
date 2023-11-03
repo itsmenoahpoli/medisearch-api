@@ -18,6 +18,8 @@ export type TUserProfile = {
   password?: string;
 };
 
+export type TCustomerRegister = TCredentials & { name: string };
+
 export class CredentialsDTO implements TCredentials {
   @IsNotEmpty()
   @IsString()

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { BaseController } from "~/modules/base.controller";
 import { AuthService } from "~/modules/auth/auth.service";
-import { JWTService } from "~/services";
 import { CredentialsDTO, UserProfileDTO } from "~/modules/auth/auth.dto";
 
 export class AuthController extends BaseController {
@@ -12,6 +11,14 @@ export class AuthController extends BaseController {
 
     this.authService = new AuthService();
   }
+
+  public customerRegisterHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const requestValidated = await this.validateRequestBody();
+    } catch (error) {
+      next(error);
+    }
+  };
 
   public currentAuthUserHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
