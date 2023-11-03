@@ -17,6 +17,9 @@ export class AuthService extends BaseService {
       where: {
         email: credentials.email,
       },
+      include: {
+        pharmacy: true,
+      },
     });
 
     if (!user) return { user: null };
