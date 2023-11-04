@@ -66,6 +66,16 @@ model Pharmacy {
   reservedMedicines ReservedMedicine[]
   medicines         Medicine[]
   user              User               @relation(references: [id], fields: [userId])
+  pharmacyLogo      PharmacyLogo?
+}
+
+model PharmacyLogo {
+  id         Int       @id @default(autoincrement())
+  fileUrl    String    @unique
+  pharmacyId Int       @unique
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+  pharmacy   Pharmacy  @relation(references: [id], fields: [pharmacyId])
 }
 
 model PharmacyRating {

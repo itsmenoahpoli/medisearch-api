@@ -147,4 +147,12 @@ export class PharmaciesService extends BaseService {
 
     return pharmacyRating;
   };
+
+  public uploadPharmacyLogo = async (logo: any) => {
+    //
+  };
+
+  public deletePharmacyLogo = async (logoId: number) => {
+    //
+  };
 }
