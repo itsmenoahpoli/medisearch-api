@@ -23,6 +23,9 @@ export class AuthService extends BaseService {
       return "USER_EMAIL_ALREADY_USED";
     }
 
+    // @ts-ignore
+    delete customerData.authType;
+
     const customer = await this.db.user.create({
       data: {
         ...customerData,
