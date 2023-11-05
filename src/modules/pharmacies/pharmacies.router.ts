@@ -24,7 +24,8 @@ export class PharmaciesRouter {
       .patch("/:id", this.pharmaciesController.updatePharmacyByIdHandler)
       .delete("/:id", this.pharmaciesController.deletePharmacyByIdHandler)
       .delete("/force-delete/:id", this.pharmaciesController.forceDeletePharmacyByIdHandler)
-      .post("/", this.pharmaciesController.createPharmacyHandler);
+      .post("/", this.pharmaciesController.createPharmacyHandler)
+      .post("/branch/register", this.pharmaciesController.registerPharmacyHandler);
   }
 
   get getRoutes(): Router {

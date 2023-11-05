@@ -112,6 +112,10 @@ export class PharmaciesController extends BaseController {
 
       const data = await this.pharmaciesService.createPharmacy(request.body);
 
+      if (data === "PHARMACY_WITH_EMAIL_ALREADY_EXIST") {
+        return response.status(400).json(data);
+      }
+
       return response.status(201).json(data);
     } catch (error) {
       next(error);
@@ -137,6 +141,26 @@ export class PharmaciesController extends BaseController {
       }
 
       const data = await this.pharmaciesService.createPharmacyRating(request.body);
+
+      return response.status(201).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public registerPharmacyHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const requestValidated = await this.validateRequestBody(PharmacyDTO, request.body);
+
+      if (requestValidated.isError) {
+        return next({ type: "validation-error", errors: requestValidated.errors });
+      }
+
+      const data = await this.pharmaciesService.createPharmacy(request.body);
+
+      if (data === "PHARMACY_WITH_EMAIL_ALREADY_EXIST") {
+        return response.status(400).json(data);
+      }
 
       return response.status(201).json(data);
     } catch (error) {

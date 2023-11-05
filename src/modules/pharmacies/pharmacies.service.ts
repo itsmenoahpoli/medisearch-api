@@ -98,6 +98,16 @@ export class PharmaciesService extends BaseService {
   };
 
   public createPharmacy = async (pharmacyData: TPharmacy) => {
+    const pharmacyUserCount = await this.db.user.count({
+      where: {
+        email: pharmacyData.email,
+      },
+    });
+
+    if (pharmacyUserCount > 0) {
+      return "PHARMACY_WITH_EMAIL_ALREADY_EXIST";
+    }
+
     const pharmacyUser = await this.db.user.create({
       data: {
         accountNo: Math.floor(Math.random() * 1000000) + "-PHARMAACCT",

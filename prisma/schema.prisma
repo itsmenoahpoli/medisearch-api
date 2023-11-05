@@ -137,6 +137,7 @@ model CustomerOrder {
   id               Int             @id @default(autoincrement())
   type             String
   cartContent      String          @db.Text
+  isReservation    Boolean         @default(false)
   userId           Int
   medicineRatingId Int
   createdAt        DateTime        @default(now())

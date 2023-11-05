@@ -46,12 +46,12 @@ npm run dev
 - [x] ADMIN - Map Assigning (coordinates) API
 - [x] ADMIN - Medicines CRUD API
 - [x] ADMIN - Pharmacies CRUD API
-- [ ] PHARMACY - POS API
-- [ ] PHARMACY - Reservation API
+- [x] PHARMACY - POS API
+- [x] PHARMACY - Reservation API
 - [x] PHARMACY - Manage My Account API
 - [x] MOBILE - Medicine Search API
 - [x] MOBILE - Available items in every store API
-- [ ] MOBILE - Medicine Reservation API
-- [ ] MOBILE - Track Reservation API
+- [x] MOBILE - Medicine Reservation API
+- [x] MOBILE - Track Reservation API
 - [x] MOBILE - Add/Edit My Addresses API
 - [x] MOBILE - Manage My Account API
