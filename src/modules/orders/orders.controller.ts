@@ -24,7 +24,13 @@ export class OrdersController extends BaseController {
 
   public getOrderByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      //
+      const data = await this.ordersService.getOrderById(Number(request.params.id));
+
+      if (!data) {
+        return response.status(404).json(data);
+      }
+
+      return response.status(200).json(data);
     } catch (error) {
       next(error);
     }

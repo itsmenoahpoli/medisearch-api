@@ -10,6 +10,7 @@ export class OrdersService extends BaseService {
     const orders = await this.db.customerOrder.findMany({
       include: {
         user: true,
+        pharmacy: true,
         pharmacyRating: true,
       },
     });
@@ -18,9 +19,15 @@ export class OrdersService extends BaseService {
   };
 
   public getOrderById = async (id: number) => {
-    const orders = await this.db.customerOrder.findMany();
+    const order = await this.db.customerOrder.findUnique({
+      where: {
+        id,
+      },
+    });
 
-    return orders;
+    if (!order) return null;
+
+    return order;
   };
 
   public createOrder = async (orderData: TOrder) => {
@@ -29,8 +36,9 @@ export class OrdersService extends BaseService {
         ...orderData,
       },
       include: {
-        pharmacy: true,
         user: true,
+        pharmacy: true,
+        pharmacyRating: true,
       },
     });
 

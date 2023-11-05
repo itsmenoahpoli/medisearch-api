@@ -13,7 +13,10 @@ export class OrdersRouter {
   }
 
   public setupRoutes() {
-    this.router.post("/", this.ordersController.createOrderHandler);
+    this.router
+      .get("/", this.ordersController.getOrdersHandler)
+      .post("/", this.ordersController.createOrderHandler)
+      .get("/:id", this.ordersController.getOrderByIdHandler);
   }
 
   get getRoutes(): Router {
