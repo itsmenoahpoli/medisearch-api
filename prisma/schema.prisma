@@ -67,6 +67,7 @@ model Pharmacy {
   medicines         Medicine[]
   user              User               @relation(references: [id], fields: [userId])
   pharmacyLogo      PharmacyLogo?
+  customerOrders    CustomerOrder[]
 }
 
 model PharmacyLogo {
@@ -102,7 +103,7 @@ model Medicine {
   quantity        Int
   pharmacyId      Int
   expirationDate  DateTime
-  reservationDate DateTime
+  reservationDate DateTime?
   createdAt       DateTime         @default(now())
   updatedAt       DateTime         @updatedAt
   deletedAt       DateTime?
@@ -136,13 +137,16 @@ model ReservedMedicine {
 model CustomerOrder {
   id               Int             @id @default(autoincrement())
   type             String
-  cartContent      String          @db.Text
+  cartContent      Json
+  totalAmount      Int
   isReservation    Boolean         @default(false)
   userId           Int
-  medicineRatingId Int
+  pharmacyId       Int
+  medicineRatingId Int?
   createdAt        DateTime        @default(now())
   updatedAt        DateTime        @updatedAt
   user             User            @relation(references: [id], fields: [userId])
+  pharmacy         Pharmacy        @relation(references: [id], fields: [pharmacyId])
   medicineRating   MedicineRating?
   pharmacyRating   PharmacyRating?
 }

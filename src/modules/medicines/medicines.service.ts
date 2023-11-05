@@ -42,8 +42,8 @@ export class MedicinesService extends BaseService {
         deletedAt: null,
       },
       include: {
-        pharmacy: true
-      }
+        pharmacy: true,
+      },
     });
 
     if (query.name) {
@@ -56,12 +56,12 @@ export class MedicinesService extends BaseService {
   public getMedicinesByPharmacyId = async (pharmacyId: number) => {
     const medicines = await this.db.medicine.findMany({
       where: {
-        pharmacyId
-      }
-    })
+        pharmacyId,
+      },
+    });
 
-    return medicines
-  }
+    return medicines;
+  };
 
   public getMedicineById = async (id: number) => {
     const medicine = await this.db.medicine.findUnique({
@@ -92,7 +92,7 @@ export class MedicinesService extends BaseService {
         ...medicineData,
         nameSlug: slugify(medicineData.name),
         expirationDate: this.convertDateToISO(medicineData.expirationDate),
-        reservationDate: this.convertDateToISO(medicineData.reservationDate),
+        reservationDate: medicineData.reservationDate ? this.convertDateToISO(medicineData.reservationDate) : null,
       },
     });
 
@@ -124,7 +124,7 @@ export class MedicinesService extends BaseService {
         ...medicineData,
         nameSlug: slugify(medicineData.name),
         expirationDate: this.convertDateToISO(medicineData.expirationDate),
-        reservationDate: this.convertDateToISO(medicineData.reservationDate),
+        reservationDate: medicineData.reservationDate ? this.convertDateToISO(medicineData.reservationDate) : null,
       },
     });
 
