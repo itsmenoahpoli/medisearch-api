@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { BaseController } from "~/modules/base.controller";
 import { AuthService } from "~/modules/auth/auth.service";
-import { CredentialsDTO, UserProfileDTO } from "~/modules/auth/auth.dto";
+import { CredentialsDTO, UserProfileDTO, CustomerRegisterDTO } from "~/modules/auth/auth.dto";
 
 export class AuthController extends BaseController {
   private authService: AuthService;
@@ -14,7 +14,19 @@ export class AuthController extends BaseController {
 
   public customerRegisterHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
-      const requestValidated = await this.validateRequestBody();
+      const requestValidated = await this.validateRequestBody(CustomerRegisterDTO, request.body);
+
+      if (requestValidated.isError) {
+        return response.status(400).json(requestValidated.errors);
+      }
+
+      const data = await this.authService.customerRegister(request.body);
+
+      if (data === "USER_EMAIL_ALREADY_USED") {
+        return response.status(400).json(data);
+      }
+
+      return response.status(201).json(data);
     } catch (error) {
       next(error);
     }

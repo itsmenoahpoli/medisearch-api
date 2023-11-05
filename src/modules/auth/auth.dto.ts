@@ -47,3 +47,9 @@ export class UserProfileDTO implements TUserProfile {
   @IsString()
   password: string;
 }
+
+export class CustomerRegisterDTO extends CredentialsDTO implements TCustomerRegister {
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+}
