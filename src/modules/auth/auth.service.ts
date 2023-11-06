@@ -118,4 +118,17 @@ export class AuthService extends BaseService {
 
     return profile;
   };
+
+  public verifyAccount = async (userId: number) => {
+    const user = await this.db.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        accountVerified: true,
+      },
+    });
+
+    return user;
+  };
 }

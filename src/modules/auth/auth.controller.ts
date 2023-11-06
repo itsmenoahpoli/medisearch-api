@@ -12,6 +12,16 @@ export class AuthController extends BaseController {
     this.authService = new AuthService();
   }
 
+  public verifyAccountHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.authService.verifyAccount(Number(request.params.userId));
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   public customerRegisterHandler = async (request: Request, response: Response, next: NextFunction) => {
     try {
       const requestValidated = await this.validateRequestBody(CustomerRegisterDTO, request.body);

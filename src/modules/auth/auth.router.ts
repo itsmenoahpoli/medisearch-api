@@ -18,6 +18,7 @@ export class AuthRouter extends MiddlewaresService {
   private setupRoutes(): void {
     this.router
       .get("/me", this.getMiddleware("requireAuth"), this.authController.currentAuthUserHandler)
+      .patch("/verify-account/:userId", this.authController.verifyAccountHandler)
       .post("/customer/register", this.authController.customerRegisterHandler)
       .post("/logout", this.getMiddleware("requireAuth"), this.authController.logoutHandler)
       .get("/my-profile", this.getMiddleware("requireAuth"), this.authController.getMyProfileHandler)
