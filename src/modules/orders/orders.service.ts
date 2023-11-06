@@ -44,4 +44,17 @@ export class OrdersService extends BaseService {
 
     return order;
   };
+
+  public fulfillOrder = async (id: number) => {
+    const order = await this.db.customerOrder.update({
+      where: {
+        id,
+      },
+      data: {
+        isFulfilled: true,
+      },
+    });
+
+    return order;
+  };
 }

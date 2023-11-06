@@ -51,4 +51,14 @@ export class OrdersController extends BaseController {
       next(error);
     }
   };
+
+  public fulfillOrderByIdHandler = async (request: Request, response: Response, next: NextFunction) => {
+    try {
+      const data = await this.ordersService.fulfillOrder(Number(request.params.orderId));
+
+      return response.status(200).json(data);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

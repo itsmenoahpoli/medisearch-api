@@ -16,7 +16,8 @@ export class OrdersRouter {
     this.router
       .get("/", this.ordersController.getOrdersHandler)
       .post("/", this.ordersController.createOrderHandler)
-      .get("/:id", this.ordersController.getOrderByIdHandler);
+      .get("/:id", this.ordersController.getOrderByIdHandler)
+      .patch("/fulfill/:orderId", this.ordersController.fulfillOrderByIdHandler);
   }
 
   get getRoutes(): Router {

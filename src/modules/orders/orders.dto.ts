@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsBoolean, IsString, IsArray, IsEnum, ValidateNested, IsNumber } from "class-validator";
+import { IsNotEmpty, IsBoolean, IsString, IsArray, IsEnum, ValidateNested, IsNumber, IsOptional } from "class-validator";
 
 export enum TOrderType {
   ORDER = "order",
@@ -17,6 +17,7 @@ export type TOrder = {
   isReservation: boolean;
   cartContent: TOrderCartContentItem[];
   totalAmount: number;
+  isFulfilled?: boolean;
 };
 
 export class OrderDTO implements TOrder {
@@ -45,4 +46,8 @@ export class OrderDTO implements TOrder {
   @IsNotEmpty()
   @IsNumber()
   totalAmount: number;
+
+  @IsOptional()
+  @IsBoolean()
+  isFulfilled: boolean;
 }
