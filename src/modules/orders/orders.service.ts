@@ -1,5 +1,5 @@
 import { BaseService } from "~/modules/base.service";
-import { TOrder } from "./orders.dto";
+import { TOrder, TOrderCartContentItem } from "./orders.dto";
 
 export class OrdersService extends BaseService {
   constructor() {
@@ -23,11 +23,30 @@ export class OrdersService extends BaseService {
       where: {
         id,
       },
+      include: {
+        pharmacy: true,
+        pharmacyRating: true,
+      },
     });
 
     if (!order) return null;
 
-    return order;
+    let cartContent = order.cartContent as TOrderCartContentItem[];
+    let orderMedicines: any = [];
+
+    const getThisOrderMedicines = cartContent.map(async (content, idx) => {
+      const medicine = await this.db.medicine.findUnique({
+        where: {
+          id: content.medicineId,
+        },
+      });
+
+      return { ...medicine, ...content };
+    });
+
+    orderMedicines = await Promise.all(getThisOrderMedicines);
+
+    return { ...order, orderMedicines };
   };
 
   public createOrder = async (orderData: TOrder) => {
